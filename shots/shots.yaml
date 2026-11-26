@@ -1,0 +1,34 @@
+# MASTER SHOT LIST — single source of truth. Filled in Phase 3 from the approved script.
+# Scripts update status / ref_selected / clip_selected / audio fields automatically.
+#
+# Shot fields:
+#   id, scene, type (ai_video | present_day | archival_photo | map | title_card), duration_s
+#   ai_video/present_day: description, motion, look (past | past_dramatic | present), model_tier
+#       (draft | standard | hero), people (default true -> faces hidden), refs_from: [shot ids],
+#       ref_images: [paths], end_ref, avoid, direction (Dima's note), transition (dissolve | cut)
+#   archival_photo: source, kenburns {start: [zoom,x,y], end: [...]}, fit (cover | contain), credit
+#   map: map {bounds, places, route, zoom_to, zoom, borders, title}
+#   title_card: title {text, subtitle, background}
+#   status: planned -> ref_ready -> ref_approved -> draft -> approved -> final
+
+film:
+  title: "Три женщины. Одна земля. Будущее."
+  fps: 24
+  transition_s: 0.6          # dissolve length
+  default_transition: dissolve
+  chapter_fade_s: 1.0        # fade to/from black between chapters
+  narration_lead_s: 0.6      # silence before narration in each scene
+  narration_tail_s: 0.9
+  narration_volume: 1.0
+  grade_filter: null         # final colour pass for AI shots, e.g. "eq=saturation=0.9:gamma=1.02"
+  music: []                  # [{file, start_s, end_s, volume, fade_in_s, fade_out_s}]
+
+scenes: []
+# - id: sc_001
+#   chapter: 0
+#   title: "Opening"
+#   narration_ru: "..."
+#   narration_en: "..."        # English subtitles
+#   ambience: {file: assets/audio/ambience/wind.mp3, volume: 0.1}
+
+shots: []

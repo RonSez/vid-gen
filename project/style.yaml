@@ -1,0 +1,42 @@
+# Machine-readable half of the style bible (style-bible.md is the human half).
+# DRAFT — the "look" is locked after Dima picks from the Phase 2 test stills.
+
+looks:
+  past:
+    image: >-
+      photorealistic documentary still, 35mm film photograph, natural warm light,
+      slightly faded colour, subtle film grain, realistic textures, Ottoman-era / British Mandate
+      Land of Israel in the early 20th century
+    video_motion: slow, calm camera movement, gentle push-in or slow pan, natural motion only
+  past_dramatic:     # emotional beats: dusk / golden hour, stronger contrast
+    image: >-
+      photorealistic cinematic documentary still, 35mm film, low golden-hour or dusk light,
+      long shadows, stronger contrast, subtle film grain, early 20th-century Land of Israel
+    video_motion: slow, deliberate camera move, gentle push-in, wind and light moving naturally
+  present:
+    image: >-
+      photorealistic contemporary documentary photograph, clean bright natural light,
+      crisp detail, modern Israel
+    video_motion: smooth, calm camera movement, gentle glide
+
+# Appended to every AI prompt in the past looks.
+period_rules: >-
+  period-accurate 1900s-1930s clothing (long skirts, headscarves, work shirts, sandals or boots),
+  hand tools, mules and horses, stone and mud-brick buildings, tents and wooden huts
+
+# Things to avoid. Video models get it as negative_prompt; image models get "Avoid: ..." text.
+negative:
+  common: >-
+    text, watermark, logo, captions, distorted hands, extra fingers, deformed faces,
+    warped limbs, cartoon, illustration, CGI look, oversaturated colours
+  past: >-
+    modern clothing, jeans, sneakers, plastic, cars, trucks, tractors, power lines, asphalt,
+    concrete apartment buildings, smartphones, sunglasses, modern glasses, zippers
+
+# Historical honesty: AI never shows the faces of the three real women.
+honesty_rule: >-
+  people seen from behind, in silhouette, at a distance or as hands only; no recognisable faces
+honesty_applies_to_types: [ai_video]
+
+prompt_template_image: "{description}. {honesty}. {look}. {period}. Avoid: {negative}"
+prompt_template_video: "{motion_desc}. {look_motion}."

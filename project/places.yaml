@@ -1,0 +1,15 @@
+# Places for maps. Coordinates are approximate (WGS84) — VERIFY each against a source
+# before its map is final, and note the source in research/sources.md.
+places:
+  jaffa:          {ru: "Яффо",            en: "Jaffa",           lat: 32.054, lon: 34.752}
+  jerusalem:      {ru: "Иерусалим",       en: "Jerusalem",       lat: 31.778, lon: 35.235}
+  haifa:          {ru: "Хайфа",           en: "Haifa",           lat: 32.794, lon: 34.989}
+  tel_aviv:       {ru: "Тель-Авив",       en: "Tel Aviv",        lat: 32.066, lon: 34.777}
+  kinneret_farm:  {ru: "Кинерет",         en: "Kinneret farm",   lat: 32.709, lon: 35.567}
+  degania:        {ru: "Дгания",          en: "Degania",         lat: 32.707, lon: 35.576}
+  sejera:         {ru: "Седжера",         en: "Sejera",          lat: 32.735, lon: 35.437}
+  petah_tikva:    {ru: "Петах-Тиква",     en: "Petah Tikva",     lat: 32.087, lon: 34.886}
+  nahalal:        {ru: "Нахалаль",        en: "Nahalal",         lat: 32.690, lon: 35.197}
+  ayanot:         {ru: "Аянот",           en: "Ayanot",          lat: 31.917, lon: 34.746}
+  rosh_pinna:     {ru: "Рош-Пина",        en: "Rosh Pinna",      lat: 32.969, lon: 35.543}
+  tiberias:       {ru: "Тверия",          en: "Tiberias",        lat: 32.795, lon: 35.531}

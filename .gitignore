@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+build/
+# Generated media is large; keep it out of git (ledger + yaml are the record)
+assets/refs/
+assets/video/
+assets/audio/
+review/*.mp4
+review/qa/
+output/*.mp4
+output/*.mov

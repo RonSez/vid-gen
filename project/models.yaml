@@ -1,0 +1,116 @@
+# Model registry. Prices in USD from fal.ai model pages, checked 2026-11-09.
+# Refresh before real spending:  python scripts/budget.py prices --refresh
+# Arg names verified against https://fal.ai/models/<endpoint>/llms.txt on 2026-11-09.
+
+eur_per_usd: 0.893
+budget:
+  target_eur: 400
+  cap_eur: 500          # hard stop — scripts refuse anything that would cross it
+  warn_fraction: 0.8    # of target: stop and ask Dima at €320
+  ask_above_eur: 2.0    # batches above this need --yes (after Dima approved the estimate)
+  retry_factor: 2.5     # used only for whole-film planning estimates
+
+models:
+  # ---------- stills ----------
+  still:
+    kind: image
+    endpoint: fal-ai/nano-banana-pro/edit      # used when reference images are given
+    t2i_endpoint: fal-ai/nano-banana-pro       # used without references
+    unit: image
+    usd: 0.15
+    refs_arg: image_urls
+    max_refs: 14
+    count_arg: num_images
+    max_count: 4
+    defaults: {aspect_ratio: "16:9", resolution: "2K", output_format: png}
+
+  still_draft:
+    kind: image
+    endpoint: fal-ai/flux-2-pro/edit
+    t2i_endpoint: fal-ai/flux-2-pro
+    unit: image
+    usd: 0.045
+    refs_arg: image_urls
+    max_refs: 8
+    count_arg: null          # one image per call
+    max_count: 1
+    defaults: {image_size: landscape_16_9, output_format: png}
+
+  # ---------- video (image-to-video, audio always OFF: it doubles the price) ----------
+  video_draft:
+    kind: video
+    endpoint: fal-ai/veo3.1/lite/image-to-video
+    unit: second
+    usd: 0.03                # 720p, no audio
+    image_arg: image_url
+    durations: [4, 6, 8]
+    duration_format: "{}s"
+    defaults: {resolution: "720p", generate_audio: false, aspect_ratio: "16:9"}
+
+  video_standard:
+    kind: video
+    endpoint: fal-ai/kling-video/v3/pro/image-to-video
+    unit: second
+    usd: 0.112               # no audio
+    image_arg: start_image_url
+    end_image_arg: end_image_url
+    durations: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    duration_format: "{}"
+    defaults: {generate_audio: false}
+
+  video_hero:
+    kind: video
+    endpoint: fal-ai/veo3.1/image-to-video
+    unit: second
+    usd: 0.20                # 1080p, no audio
+    image_arg: image_url
+    durations: [4, 6, 8]
+    duration_format: "{}s"
+    defaults: {resolution: "1080p", generate_audio: false, aspect_ratio: "16:9"}
+
+  # ---------- audio ----------
+  tts:                      # the chosen narrator (set after Dima picks a voice sample)
+    kind: tts
+    endpoint: fal-ai/elevenlabs/tts/eleven-v3
+    unit: 1k_chars
+    usd: 0.10
+    text_arg: text
+    defaults: {language_code: ru, timestamps: true}
+
+  music:
+    kind: music
+    endpoint: fal-ai/elevenlabs/music
+    unit: minute             # rounded up
+    usd: 0.60
+    defaults: {force_instrumental: true}
+
+  upscale:
+    kind: upscale
+    endpoint: fal-ai/topaz/upscale/video
+    unit: second
+    usd: 0.02                # 720p -> 1080p
+    defaults: {upscale_factor: 1.5, H264_output: true}
+
+# Voice candidates for the one-off Russian comparison (tts.py compare)
+tts_candidates:
+  eleven_v3:
+    endpoint: fal-ai/elevenlabs/tts/eleven-v3
+    usd_per_1k: 0.10
+    args: {language_code: ru}
+    text_arg: text
+  eleven_multilingual_v2:
+    endpoint: fal-ai/elevenlabs/tts/multilingual-v2
+    usd_per_1k: 0.10
+    args: {language_code: ru}
+    text_arg: text
+  minimax_28_hd:
+    endpoint: fal-ai/minimax/speech-2.8-hd
+    usd_per_1k: 0.10
+    args: {language_boost: Russian, output_format: url}
+    text_arg: prompt
+  gemini_31_flash:
+    endpoint: fal-ai/gemini-3.1-flash-tts
+    usd_per_1k: 0.05
+    args: {language_code: "Russian (Russia)", output_format: mp3,
+           style_instructions: "Calm, warm documentary narrator, unhurried."}
+    text_arg: prompt
